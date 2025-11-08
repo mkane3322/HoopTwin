@@ -1,22 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HoopTwin</title>
-    <link rel="stylesheet" href="HoopTwin.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HoopTwin — Player Similarity Site</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>HoopTwin - Player Similarity Site</h1>
-    </header>
-    <main class="container">
-        <section class="controls">
-            <label class="file-row">
-                <span>Load stats file (CSV/TXT):</span>
-                <input id="fileInput" type="file" accept=".csv,.txt"/>
-            </label>
-        </section>
-    </main>
+  <header>
+    <h1>HoopTwin — Player Similarity</h1>
+  </header>
+
+  <main class="container">
+    <section class="controls card">
+      <label class="file-row">
+        <span>Load stats files (select multiple):</span>
+        <input id="fileInput" type="file" multiple accept=".csv,.txt" />
+      </label>
+
+      <div id="loadedFiles" class="muted" style="margin-top:8px;">No files loaded.</div>
+
+      <div class="row" style="margin-top:12px;">
+        <label style="flex:1">
+          Select player:
+          <select id="playerSelect" disabled>
+            <option>Load datasets first...</option>
+          </select>
+        </label>
+
+        <label>
+          K (neighbors):
+          <input id="kVal" type="number" value="5" min="1" max="50"/>
+        </label>
+
+        <label style="min-width:220px;">
+          Features to use:
+          <button id="autoFeaturesBtn" class="small">Auto-select top numeric</button>
+          <div id="featurePreview" class="muted" style="margin-top:6px;font-size:12px"></div>
+        </label>
+      </div>
+
+      <div class="row" style="margin-top:10px;">
+        <button id="runBoth" class="primary" disabled>Run Both Algorithms</button>
+        <button id="runBrute" disabled>Run Brute-Force</button>
+        <button id="runKD" disabled>Run KD-Tree</button>
+        <button id="downloadNorm" disabled>Download normalized CSV</button>
+      </div>
+
+      <div id="status" class="status muted">Waiting for files...</div>
+    </section>
+
+    <section id="results" class="card hidden">
+      <div class="times">
+        <div>Brute-Force time: <span id="timeBrute">—</span> ms</div>
+        <div>KD-Tree time: <span id="timeKD">—</span> ms</div>
+      </div>
+
+      <div class="row">
+        <div class="panel">
+          <h3>Neighbors (Brute-Force)</h3>
+          <table id="tableBrute" class="resultsTable">
+            <thead id="theadBrute"></thead>
+            <tbody id="tbodyBrute"></tbody>
+          </table>
+        </div>
+
+        <div class="panel">
+          <h3>Neighbors (KD-Tree)</h3>
+          <table id="tableKD" class="resultsTable">
+            <thead id="theadKD"></thead>
+            <tbody id="tbodyKD"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:12px;">
+        <h3>Selected Player vs Top Match (bar chart)</h3>
+        <canvas id="compareChart" width="900" height="300"></canvas>
+      </div>
+    </section>
+  </main>
+  <script src="HoopTwin.js"></script>
 </body>
 </html>
