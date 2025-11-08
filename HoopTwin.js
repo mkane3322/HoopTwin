@@ -1,0 +1,29 @@
+(() => {
+    const fileInput = document.getElementById('fileInput');
+  const loadedFilesEl = document.getElementById('loadedFiles');
+  const playerSelect = document.getElementById('playerSelect');
+  const autoFeaturesBtn = document.getElementById('autoFeaturesBtn');
+  const runBoth = document.getElementById('runBoth');
+  const runBrute = document.getElementById('runBrute');
+  const runKD = document.getElementById('runKD');
+  const kVal = document.getElementById('kVal');
+  const status = document.getElementById('status');
+  const resultsSection = document.getElementById('results');
+  const timeBruteEl = document.getElementById('timeBrute');
+  const timeKDEl = document.getElementById('timeKD');
+  const theadBrute = document.getElementById('theadBrute');
+  const tbodyBrute = document.getElementById('tbodyBrute');
+  const theadKD = document.getElementById('theadKD');
+  const tbodyKD = document.getElementById('tbodyKD');
+  const downloadNorm = document.getElementById('downloadNorm');
+  const featurePreview = document.getElementById('featurePreview');
+  const compareCanvas = document.getElementById('compareChart');
+  const ctx = compareCanvas.getContext('2d');
+  let rawRows = [];       
+  let headers = [];       
+  let numericCols = [];   
+  let normData = [];      
+  let kdTree = null;      
+  let idFieldCandidates = ['Player', 'Player-additional', 'player', 'player_id', 'playerId'];
+
+})();
