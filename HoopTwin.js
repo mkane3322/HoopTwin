@@ -35,23 +35,20 @@
     return parts;
   }
   function parseCSV(text) {
-    const rawLines = text.split(/\r?\n/);
-    const lines = rawLines.filter(l => l.trim() !== '');
-    if (lines.length === 0) return { headers: [], rows: [] };
-    const headerLine = lines[0];
-    const hdrs = headerLine.split(',').map(h => h.trim());
+    const rawLines = text.split(/\r?\n/).filter(l => l.trim() !== '');
+    if (!rawLines.length) return {headers: [], rows: [] };
+    const delimiter = (rawLines[0].includes('\t')) ? '\t' : ',';
+    const headers = rawLines[0].split(delimiter).map(h => h.trim());
     const rows = [];
-    for (let i = 1; i < lines.length; i++) {
-      const line = lines[i];
-      if (!line.trim()) continue;
-      const cols = safeSplitCSV(line, hdrs.length);
-      const obj = {};
-      for (let j = 0; j < hdrs.length; j++) {
-        obj[hdrs[j]] = (cols[j] !== undefined) ? cols[j].trim() : '';
-      }
-      rows.push(obj);
+    for (let i = 1; i < rawLines.length; i++) {
+        const cols = rawLines[i].split(delimiter);
+        const obj = {};
+        for (let j = 0; j < headers.length; j++) {
+            obj[headers[j]] = (cols[j] || '').trim();
+        }
+        rows.push(obj);
     }
-    return { headers: hdrs, rows };
+    return { headers, rows};
   }
   function mergeRowsById(allRows) {
     const map = new Map();
