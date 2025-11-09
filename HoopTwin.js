@@ -35,13 +35,17 @@
     return parts;
   }
   function parseCSV(text) {
-    const rawLines = text.split(/\r?\n/).filter(l => l.trim() !== '');
-    if (!rawLines.length) return {headers: [], rows: [] };
-    const delimiter = (rawLines[0].includes('\t')) ? '\t' : ',';
-    const headers = rawLines[0].split(delimiter).map(h => h.trim());
+    const lines = text.split(/\r?\n/).filter(l => l.trim() !== '');
+    if (lines.length === 0) return { headers: [], rows: []};
+    const sample = lines[0];
+    let delimiter = ',';
+    if (sample.includes('\t')) delimiter = '\t';
+    else if (sample.includes(';')) delimiter = ';';
+    const headers = sample.split(delimiter).map(h => h.trim());
     const rows = [];
-    for (let i = 1; i < rawLines.length; i++) {
-        const cols = rawLines[i].split(delimiter);
+    for (let i = 1; i < lines.length; i++) {
+        const cols = lines[i].split(delimiter);
+        if (cols.length === 1 && !cols[0].trim()) continue;
         const obj = {};
         for (let j = 0; j < headers.length; j++) {
             obj[headers[j]] = (cols[j] || '').trim();
