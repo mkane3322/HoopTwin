@@ -28,7 +28,6 @@
   function safeSplitCSV(line, expectedCols) {
        const parts = line.split(',');
     if (expectedCols && parts.length > expectedCols) {
-      // join trailing extra into last column
       const needed = expectedCols - 1;
       const out = parts.slice(0, needed).concat([parts.slice(needed).join(',')]);
       return out;
@@ -339,7 +338,6 @@
     }
   }
   function drawComparison(idxA, idxB) {
-    // draw side-by-side bars for numericCols
     if (!normData[idxA] || !normData[idxB]) return;
     const a = normData[idxA], b = normData[idxB];
     const w = compareCanvas.width;
