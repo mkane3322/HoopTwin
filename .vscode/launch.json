@@ -1,0 +1,24 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [],
+      "stopAtEntry": false,
+      "externalConsole": true,
+      "cwd": "c:/Users/Dou/AppData/Local/Temp/8472040d-5d92-4c79-b3d1-3f4665963a3c_wad.tar.gz.a3c/wadfs",
+      "program": "c:/Users/Dou/AppData/Local/Temp/8472040d-5d92-4c79-b3d1-3f4665963a3c_wad.tar.gz.a3c/wadfs/build/Debug/outDebug",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    }
+  ]
+}
